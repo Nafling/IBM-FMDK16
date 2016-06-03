@@ -1,23 +1,36 @@
 var Client = require('ibmiotf');
 var sphero = require("sphero");
-orb = sphero("D3:27:B8:27:F1:06");
+orb = sphero("f2:97:44:8f:3f:92"); //blue BB-8
+//orb = sphero("D3:27:B8:27:F1:06"); //red BB-8
 
 var speed = 0;
 var direction = 0;
 var calibration = false;
 
 var config = {
-    "org" : "fsmx8m",
-    "id" : "blueorbfm16",
-    "type" : "bb8",
+    "org" : "neia69",
+    "id" : "RED",
+    "type" : "BB-8",
     "auth-method" : "token",
-    "auth-token" : "H_5wqaUpjzF?CC9am6"
+    "auth-token" : "FiskErSundt"
 };
 
 var deviceClient = new Client.IotfDevice(config);
 
 orb.connect(function() {
     orb.color("green");
+    orb.detectCollisions();
+    orb.on("collision", function(data) {
+        console.log("collision detected");
+        console.log("  data:", data);
+ 
+        orb.color("red");
+ 
+        setTimeout(function() {
+           orb.color("green");
+        }, 1000);
+  });
+
     deviceClient.connect();
 });
 
@@ -41,7 +54,7 @@ deviceClient.on("command", function (commandName,format,payload,topic) {
         orb.color("black");
 	calibration = true;
         setTimeout(function() {
-          orb.setHeading(calibrate);
+          orb.setHeading(0);
           orb.setBackLed(0);
           orb.color("green");
           orb.setStabilization(1);
