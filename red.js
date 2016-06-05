@@ -1,7 +1,7 @@
 var Client = require('ibmiotf');
 var sphero = require("sphero");
-orb = sphero("f2:97:44:8f:3f:92"); //blue BB-8
-//orb = sphero("D3:27:B8:27:F1:06"); //red BB-8
+//orb = sphero("f2:97:44:8f:3f:92"); //blue BB-8
+orb = sphero("D3:27:B8:27:F1:06"); //red BB-8
 
 var speed = 0;
 var direction = 0;
