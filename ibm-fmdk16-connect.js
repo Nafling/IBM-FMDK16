@@ -1,20 +1,32 @@
-process.stdout.write('\033c'); //clear terminal
+var redOrb = "D3:27:B8:27:F1:06";
+var blueOrb = "f2:97:44:8f:3f:92";
+var greenOrb = "EE:E5:60:10:DD:72";
+var purpleOrb = "CD:A4:00:D9:75:00";
 
+process.stdout.write('\033c'); //clear terminal
 var Client = require('ibmiotf');
 var sphero = require("sphero");
 var orbParameter = process.argv[2];
 
 switch(orbParameter){
-    case "blue":
-        orb = sphero("f2:97:44:8f:3f:92"); //blue BB-8
-        console.log("Setting up MQTT-connection to Blue BB-8...");
-        break;
     case "red":
-        orb = sphero("D3:27:B8:27:F1:06"); //red BB-8
+        orb = sphero(redOrb);
         console.log("Setting up MQTT-connection to Red BB-8...");
         break;
+    case "green":
+        orb = sphero(greenOrb);
+        console.log("Setting up MQTT-connection to Green BB-8...");
+        break;
+    case "blue":
+        orb = sphero(blueOrb);
+        console.log("Setting up MQTT-connection to Blue BB-8...");
+        break;
+    case "purple":
+        orb = sphero(purpleOrb);
+        console.log("Setting up MQTT-connection to Purple BB-8...");
+        break;
     default:
-        console.log("ERROR: Connect to Blue or Red? Example: sudo node fmdk16-connect.js blue");
+        console.log("ERROR: Connect to Red, Green, Blue or Purple? Example: sud$
         process.exit(1);
 };
 
