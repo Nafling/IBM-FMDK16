@@ -6,8 +6,8 @@ var purpleOrb = "CD:A4:00:D9:75:00";
 process.stdout.write('\033c'); //clear terminal
 var Client = require('ibmiotf');
 var sphero = require("sphero");
-var controllerParameter = process.argv[2];
-var orbParameter = process.argv[3];
+var controllerParameter = require('os').hostname().split('.').shift();
+var orbParameter = process.argv[2];
 
 
 switch(orbParameter){
@@ -28,7 +28,7 @@ switch(orbParameter){
         console.log("Setting up MQTT-connection to Purple BB-8...");
         break;
     default:
-        console.log("ERROR: Connect to Red, Green, Blue or Purple? Example: sudo node fmdk16-connect.js 1 blue");
+        console.log("ERROR: Connect to Red, Green, Blue or Purple? Example: sudo node fmdk16-connect.js blue");
         process.exit(1);
 };
 
@@ -38,7 +38,7 @@ var calibration = false;
 
 var config = {
     "org" : "neia69",
-    "id" : "RaspberryPi" + controllerParameter + "",
+    "id" : "" + controllerParameter + "",
     "type" : "BB-8",
     "auth-method" : "token",
     "auth-token" : "FiskErSundt"
