@@ -45,7 +45,7 @@ var config = {
 var deviceClient = new Client.IotfDevice(config);
 
 orb.connect(function() {
-    onsole.log("BB-8 Connected!");
+    console.log("BB-8 Connected!");
     orb.color(orbParameter);
 
     deviceClient.connect();
