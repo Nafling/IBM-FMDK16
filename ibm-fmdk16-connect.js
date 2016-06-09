@@ -46,18 +46,7 @@ var deviceClient = new Client.IotfDevice(config);
 
 orb.connect(function() {
     onsole.log("BB-8 Connected!");
-    orb.color("green");
-    orb.detectCollisions();
-    orb.on("collision", function(data) {
-        console.log("collision detected");
-        console.log("  data:", data);
- 
-        orb.color("red");
- 
-        setTimeout(function() {
-           orb.color("green");
-        }, 1000);
-  });
+    orb.color(orbParameter);
 
     deviceClient.connect();
 });
@@ -87,7 +76,7 @@ deviceClient.on("command", function (commandName,format,payload,topic) {
         setTimeout(function() {
           orb.setHeading(0);
           orb.setBackLed(0);
-          orb.color("green");
+          orb.color(orbParameter);
           orb.setStabilization(1);
 	  calibration = false;
         }, calibrate);
