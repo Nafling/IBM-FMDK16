@@ -26,7 +26,7 @@ switch(orbParameter){
         console.log("Setting up MQTT-connection to Purple BB-8...");
         break;
     default:
-        console.log("ERROR: Connect to Red, Green, Blue or Purple? Example: sud$
+        console.log("ERROR: Connect to Red, Green, Blue or Purple? Example: sudo node fmdk16-connect.js blue");
         process.exit(1);
 };
 
