@@ -36,7 +36,7 @@ var calibration = false;
 
 var config = {
     "org" : "neia69",
-    "id" : "" + orbParameter.toUpperCase() + "",
+    "id" : "RED",
     "type" : "BB-8",
     "auth-method" : "token",
     "auth-token" : "FiskErSundt"
