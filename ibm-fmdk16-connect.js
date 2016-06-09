@@ -9,29 +9,6 @@ var sphero = require("sphero");
 var controllerParameter = require('os').hostname().split('.').shift();
 var orbParameter = process.argv[2];
 
-
-switch(orbParameter){
-    case "red":
-        orb = sphero(redOrb);
-        console.log("Setting up MQTT-connection to Red BB-8...");
-        break;
-    case "green":
-        orb = sphero(greenOrb);
-        console.log("Setting up MQTT-connection to Green BB-8...");
-        break;
-    case "blue":
-        orb = sphero(blueOrb);
-        console.log("Setting up MQTT-connection to Blue BB-8...");
-        break;
-    case "purple":
-        orb = sphero(purpleOrb);
-        console.log("Setting up MQTT-connection to Purple BB-8...");
-        break;
-    default:
-        console.log("ERROR: Connect to Red, Green, Blue or Purple? Example: sudo node fmdk16-connect.js blue");
-        process.exit(1);
-};
-
 var speed = 0;
 var direction = 0;
 var calibration = false;
@@ -42,6 +19,32 @@ var config = {
     "type" : "BB-8",
     "auth-method" : "token",
     "auth-token" : "FiskErSundt"
+};
+
+switch(orbParameter){
+    case "red":
+        orb = sphero(redOrb);
+        console.log("Setting up MQTT-connection to Red BB-8...");
+        console.log(config);
+        break;
+    case "green":
+        orb = sphero(greenOrb);
+        console.log("Setting up MQTT-connection to Green BB-8...");
+        console.log(config);
+        break;
+    case "blue":
+        orb = sphero(blueOrb);
+        console.log("Setting up MQTT-connection to Blue BB-8...");
+        console.log(config);
+        break;
+    case "purple":
+        orb = sphero(purpleOrb);
+        console.log("Setting up MQTT-connection to Purple BB-8...");
+        console.log(config);
+        break;
+    default:
+        console.log("ERROR: Connect to Red, Green, Blue or Purple? Example: sudo node fmdk16-connect.js blue");
+        process.exit(1);
 };
 
 var deviceClient = new Client.IotfDevice(config);
@@ -56,7 +59,6 @@ orb.connect(function() {
 deviceClient.connect();
 
 deviceClient.on('connect', function () {
-    console.log(config);
     console.log("Connected to IBM Watson IoT Platform");
     deviceClient.publish("status","json",'{"d" : { "cpu" : 60, "mem" : 50 }}');
 });
