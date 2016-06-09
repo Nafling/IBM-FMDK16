@@ -56,8 +56,6 @@ orb.connect(function() {
     deviceClient.connect();
 });
 
-deviceClient.connect();
-
 deviceClient.on('connect', function () {
     console.log("Connected to IBM Watson IoT Platform");
     deviceClient.publish("status","json",'{"d" : { "cpu" : 60, "mem" : 50 }}');
