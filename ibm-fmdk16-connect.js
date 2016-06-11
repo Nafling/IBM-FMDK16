@@ -1,9 +1,10 @@
+process.stdout.write('\033c'); //clear terminal
+
 var redOrb = "D3:27:B8:27:F1:06";
 var blueOrb = "f2:97:44:8f:3f:92";
 var greenOrb = "EE:E5:60:10:DD:72";
 var purpleOrb = "CD:A4:00:D9:75:00";
 
-process.stdout.write('\033c'); //clear terminal
 var Client = require('ibmiotf');
 var sphero = require('sphero');
 var controllerParameter = require('os').hostname();
@@ -27,31 +28,26 @@ switch(orbParameter){
 	case "red": orb = sphero(redOrb); break;
 	case "green": orb = sphero(greenOrb); break;
 	case "blue": orb = sphero(blueOrb); break;
-    case "purple": orb = sphero(purpleOrb); break;
+	case "purple": orb = sphero(purpleOrb); break;
 	default:
-		console.log("ERROR: Connect to Red, Green, Blue or Purple? Example: sudo node fmdk16-connect.js blue");
-		process.exit(1);
+	console.log("ERROR: Connect to Red, Green, Blue or Purple? Example: sudo node fmdk16-connect.js blue");
+	process.exit(1);
 };
 console.log("Setting up MQTT-connection to " + orbParameter + " BB-8...");
 console.log(config);
 
 var deviceClient = new Client.IotfDevice(config);
+
 orb.connect(function() {
 	console.log("BB-8 Connected!");
-	orb.color(orbParameter);
-	deviceClient.connect();
-});
-
-deviceClient.on('connect', function () {
-	console.log("Connected to IBM Watson IoT Platform");
-
+	
 	orb.detectCollisions({device: "bb8"});
 	orb.on("collision", function(data) {
-		orb.color("red");
+		//orb.color("red");
 		collisionScore += 1;
 		setTimeout(function() {
 			orb.color(orbParameter);
-		}, 200);
+		}, 500);
 	});
 
 	setInterval(function(){
@@ -70,6 +66,12 @@ deviceClient.on('connect', function () {
 		deviceClient.publish("status","json", payload);
 		console.log("Publishing: " + payload);
 	}, 5000);
+	orb.color(orbParameter);
+	deviceClient.connect();
+});
+
+deviceClient.on('connect', function () {
+	console.log("Connected to IBM Watson IoT Platform");
 });
 
 deviceClient.on("command", function (commandName,format,payload,topic) {
